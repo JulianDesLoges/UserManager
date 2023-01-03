@@ -44,7 +44,6 @@ namespace UserManager.WPF
 
         private async void UserExplorer_SelectionChanged(object obj)
         {
-
             // TODO use Dictionary / Application.Resources for this.
             if (obj is UserGroupViewModel userGroup)
             {

@@ -20,16 +20,20 @@
             </Grid.ColumnDefinitions>
 
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
 
             <uc:UserExplorer Grid.Column="0"
+                             Grid.Row="0"
+                             Grid.RowSpan="2"
                              x:Name="_userExplorer"
                              SelectionChanged="UserExplorer_SelectionChanged">
             </uc:UserExplorer>
 
             <GridSplitter Grid.Column="0"
                           Grid.Row="0"
+                          Grid.RowSpan="2"
                           Width="10"
                           BorderThickness="4 0"
                           Margin="0 0 -4 0"
@@ -43,6 +47,26 @@
                             Grid.Column="1"
                             Grid.Row="0">
             </ContentControl>
+
+            <DockPanel Grid.Column="1"
+                       Grid.Row="1"
+                       HorizontalAlignment="Stretch"
+                       VerticalAlignment="Bottom">
+                <StackPanel DockPanel.Dock="Right"
+                            Orientation="Horizontal">
+                    <Button Content="Update"
+                            Width="Auto"
+                            MinWidth="150">
+                    </Button>
+                </StackPanel>
+                <StackPanel DockPanel.Dock="Left"
+                            Orientation="Horizontal">
+                    <Button Content="Revert Changes"
+                            Width="Auto"
+                            MinWidth="150">
+                    </Button>
+                </StackPanel>
+            </DockPanel>
             
         </Grid>
     </DockPanel>
