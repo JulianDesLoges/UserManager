@@ -1,0 +1,19 @@
+﻿<Application x:Class="UserManager.WPF.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:UserManager.WPF"
+             xmlns:vm="clr-namespace:UserManager.WPF.ViewModels.DetailViewModels"
+             xmlns:uc="clr-namespace:UserManager.WPF.Views.UserControls"
+             Startup="Application_Startup">
+    <Application.Resources>
+
+        <DataTemplate DataType="{x:Type vm:UserGroupDetailViewModel}">
+            <uc:UserGroupDetailView></uc:UserGroupDetailView>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:UserDetailViewModel}">
+            <uc:UserDetailView></uc:UserDetailView>
+        </DataTemplate>
+        
+    </Application.Resources>
+</Application>

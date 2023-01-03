@@ -1,0 +1,47 @@
+﻿<Window x:Class="UserManager.WPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:uc="clr-namespace:UserManager.WPF.Views.UserControls"
+        xmlns:vm="clr-namespace:UserManager.WPF.ViewModels"
+        xmlns:local="clr-namespace:UserManager.WPF"
+        mc:Ignorable="d"
+        Title="UserManager" Height="450" Width="800">
+    <Window.DataContext>
+        <vm:MainWindowViewModel></vm:MainWindowViewModel>
+    </Window.DataContext>
+    <DockPanel>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <uc:UserExplorer Grid.Column="0"
+                             SelectionChanged="UserExplorer_SelectionChanged">
+            </uc:UserExplorer>
+
+            <GridSplitter Grid.Column="0"
+                          Grid.Row="0"
+                          Width="10"
+                          BorderThickness="4 0"
+                          Margin="0 0 -4 0"
+                          BorderBrush="Transparent"
+                          Height="Auto"
+                          HorizontalAlignment="Right"
+                          VerticalAlignment="Stretch">
+            </GridSplitter>
+
+            <ContentControl Content="{Binding CurrentDetailViewModel}"
+                            Grid.Column="1"
+                            Grid.Row="0">
+            </ContentControl>
+            
+        </Grid>
+    </DockPanel>
+</Window>
