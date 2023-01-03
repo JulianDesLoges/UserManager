@@ -39,12 +39,11 @@ namespace UserManager.WPF
 
         private void UserExplorer_SelectionChanged(object obj)
         {
-            
-            
+            // TODO use Dictionary / Application.Resources for this.
             if (obj.GetType() == typeof(UserGroupViewModel))
             {
                 Debug.WriteLine("SelectionChanged: UserGroupDetailViewModel Opening");
-                _viewModel.CurrentDetailViewModel = new UserGroupDetailViewModel();
+                _viewModel.CurrentDetailViewModel = new UserGroupDetailViewModel((UserGroupViewModel)obj);
             }
             else if (obj.GetType() == typeof(UserViewModel))
             {

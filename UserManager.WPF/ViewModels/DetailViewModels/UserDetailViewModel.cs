@@ -11,5 +11,6 @@ namespace UserManager.WPF.ViewModels.DetailViewModels
     /// </summary>
     public class UserDetailViewModel : ViewModelBase, IDetailViewModel
     {
+
     }
 }

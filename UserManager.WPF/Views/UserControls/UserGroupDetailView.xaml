@@ -9,6 +9,72 @@
              d:DataContext="{d:DesignData Type=uc:UserGroupDetailView}"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <TextBlock>UserGroupDetailView</TextBlock>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+
+
+        <TextBlock Grid.Row="0"
+                   Grid.Column="0">
+            <Run Text="DEBUG: "></Run>
+            <Run Text="{Binding EditState}"></Run>
+        </TextBlock>
+        
+        <TextBlock Text="User Group Name"
+                   Grid.Column="0"
+                   Grid.Row="1">
+        </TextBlock>
+        <TextBox Text="{Binding Name}"
+                 Grid.Column="1"
+                 Grid.Row="1">
+        </TextBox>
+
+        
+        <TextBlock Text="Read"
+                   Grid.Column="0"
+                   Grid.Row="2">
+        </TextBlock>
+        <CheckBox IsChecked="{Binding ReadPermission}"
+                  Grid.Column="1"
+                  Grid.Row="2">
+        </CheckBox>
+
+        <TextBlock Text="Contribute"
+                   Grid.Column="0"
+                   Grid.Row="3">
+        </TextBlock>
+        <CheckBox IsChecked="{Binding ContributePermission}"
+                  Grid.Column="1"
+                  Grid.Row="3">
+        </CheckBox>
+
+        <TextBlock Text="Create"
+                   Grid.Column="0"
+                   Grid.Row="4">
+        </TextBlock>
+        <CheckBox IsChecked="{Binding CreatePermission}"
+                  Grid.Column="1"
+                  Grid.Row="4">
+        </CheckBox>
+
+        <TextBlock Text="Manage"
+                   Grid.Column="0"
+                   Grid.Row="5">
+        </TextBlock>
+        <CheckBox IsChecked="{Binding ManagePermission}"
+                  Grid.Column="1"
+                  Grid.Row="5">
+        </CheckBox>
+
     </Grid>
 </UserControl>
