@@ -7,14 +7,15 @@
         xmlns:vm="clr-namespace:UserManager.WPF.ViewModels"
         xmlns:local="clr-namespace:UserManager.WPF"
         mc:Ignorable="d"
-        Title="UserManager" Height="450" Width="800">
+        Title="UserManager" Height="450" Width="800"
+        Loaded="Window_Loaded">
     <Window.DataContext>
         <vm:MainWindowViewModel></vm:MainWindowViewModel>
     </Window.DataContext>
     <DockPanel>
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
@@ -23,6 +24,7 @@
             </Grid.RowDefinitions>
 
             <uc:UserExplorer Grid.Column="0"
+                             x:Name="_userExplorer"
                              SelectionChanged="UserExplorer_SelectionChanged">
             </uc:UserExplorer>
 

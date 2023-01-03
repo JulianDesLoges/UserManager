@@ -27,18 +27,6 @@ namespace UserManager.WPF.Views.UserControls
         }
 
 
-        private async void UserExplorer_Loaded(object sender, RoutedEventArgs e)
-        {
-            var response = await _webApi.GetAsync("UserGroup");
-
-            if (response.IsSuccessStatusCode)
-            {
-                var userGroups = await response.Content.ReadFromJsonAsync<ObservableCollection<UserGroupViewModel>>();
-                ((UserExplorerViewModel)DataContext).UserGroups = userGroups ?? new ObservableCollection<UserGroupViewModel>();
-            }
-        }
-
-
         private void TreeView_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
             => SelectionChanged?.Invoke(((TreeView)sender).SelectedItem);
     }

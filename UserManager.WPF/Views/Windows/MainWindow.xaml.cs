@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Net.Http.Json;
@@ -76,6 +77,21 @@ namespace UserManager.WPF
             {
                 throw new Exception("Unknown UserExplorer selection.");
             }
+        }
+
+
+        private async void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            // Init UserExplorer
+            var response = await _webApi.GetAsync("UserGroup");
+
+            if (!response.IsSuccessStatusCode) { throw new Exception("Failed to request UserGroups"); }
+
+            var userGroups = await response.Content.ReadFromJsonAsync<ObservableCollection<UserGroupViewModel>>();
+
+            if (userGroups == null) { throw new Exception("Invalid UserGroups layout."); }
+
+            ((UserExplorerViewModel)_userExplorer.DataContext).UserGroups = userGroups;
         }
     }
 }
