@@ -15,14 +15,19 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
 
         <TreeView ItemsSource="{Binding UserGroups}"
                   Name="trvUserGroups"
+                  Grid.Row="0"
+                  Grid.Column="0"
+                  Grid.ColumnSpan="2"
                   SelectedItemChanged="TreeView_SelectedItemChanged">
 
             <TreeView.ItemTemplate>
@@ -40,6 +45,16 @@
                 </HierarchicalDataTemplate>
             </TreeView.ItemTemplate>
         </TreeView>
-        
+
+
+        <Button Content="+ User Group"
+                Grid.Row="1"
+                Grid.Column="0">
+        </Button>
+        <Button Content="+ User"
+                Grid.Row="1"
+                Grid.Column="1">
+        </Button>
+
     </Grid>
 </UserControl>
