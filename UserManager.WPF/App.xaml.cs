@@ -9,6 +9,13 @@ using System.Windows;
 using UserManager.WPF.Extensions;
 using UserManager.WPF.Services;
 
+// Implement
+// TODO updating/adding/removing user / user groups
+// TODO change user group for user
+// TODO improve visuals
+// TODO request caching
+// TODO lazy loading
+
 namespace UserManager.WPF
 {
     /// <summary>

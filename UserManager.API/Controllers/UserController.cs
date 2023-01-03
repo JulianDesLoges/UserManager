@@ -28,21 +28,18 @@ namespace UserManager.API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<UserDTO>>> GetUsers()
         {
-            return await _context.User.Select(user =>
-                new UserDTO()
-                {
-                    Id = user.Id,
-                    FirstName = user.FirstName,
-                    LastName = user.LastName,
-                    CompanyId = user.CompanyId,
-                    GroupId = user.GroupId,
-                }).ToListAsync();
+            return await _context.User.Select(user => new UserDTO()
+            {
+                Id = user.Id,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+            }).ToListAsync();
         }
 
 
         // GET: api/User/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetUser(int id)
+        public async Task<ActionResult<UserDetailDTO>> GetUser(int id)
         {
             var user = await _context.User.FindAsync(id);
 
@@ -51,7 +48,18 @@ namespace UserManager.API.Controllers
                 return NotFound();
             }
 
-            return user;
+            return new UserDetailDTO()
+            {
+                Id = user.Id,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                CompanyId = user.CompanyId,
+                Company = _context.Company.Where(c => c.Id == user.CompanyId).Select(c => new CompanyDTO()
+                {
+                    Id = c.Id,
+                    Name = c.Name,
+                }).First(),
+            };
         }
 
 
@@ -90,7 +98,7 @@ namespace UserManager.API.Controllers
         // POST: api/User
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<UserDTO>> PostUser(UserDTO userDto)
+        public async Task<ActionResult<UserDetailDTO>> PostUser(UserDetailDTO userDto)
         {
 
             var company = await _context.Company.FindAsync(userDto.CompanyId);

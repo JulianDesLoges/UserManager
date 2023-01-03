@@ -20,60 +20,52 @@
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
 
-
-        <TextBlock Grid.Row="0"
-                   Grid.Column="0">
-            <Run Text="DEBUG: "></Run>
-            <Run Text="{Binding EditState}"></Run>
-        </TextBlock>
-        
         <TextBlock Text="User Group Name"
                    Grid.Column="0"
-                   Grid.Row="1">
+                   Grid.Row="0">
         </TextBlock>
         <TextBox Text="{Binding Name}"
                  Grid.Column="1"
-                 Grid.Row="1">
+                 Grid.Row="0">
         </TextBox>
 
         
         <TextBlock Text="Read"
                    Grid.Column="0"
-                   Grid.Row="2">
+                   Grid.Row="1">
         </TextBlock>
         <CheckBox IsChecked="{Binding ReadPermission}"
                   Grid.Column="1"
-                  Grid.Row="2">
+                  Grid.Row="1">
         </CheckBox>
 
         <TextBlock Text="Contribute"
                    Grid.Column="0"
-                   Grid.Row="3">
+                   Grid.Row="2">
         </TextBlock>
         <CheckBox IsChecked="{Binding ContributePermission}"
                   Grid.Column="1"
-                  Grid.Row="3">
+                  Grid.Row="2">
         </CheckBox>
 
         <TextBlock Text="Create"
                    Grid.Column="0"
-                   Grid.Row="4">
+                   Grid.Row="3">
         </TextBlock>
         <CheckBox IsChecked="{Binding CreatePermission}"
                   Grid.Column="1"
-                  Grid.Row="4">
+                  Grid.Row="3">
         </CheckBox>
 
         <TextBlock Text="Manage"
                    Grid.Column="0"
-                   Grid.Row="5">
+                   Grid.Row="4">
         </TextBlock>
         <CheckBox IsChecked="{Binding ManagePermission}"
                   Grid.Column="1"
-                  Grid.Row="5">
+                  Grid.Row="4">
         </CheckBox>
 
     </Grid>

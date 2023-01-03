@@ -30,45 +30,31 @@ namespace UserManager.API.Controllers
                 {
                     Id = g.Id,
                     Name = g.Name,
-                    ContributePermission = g.ContributePermission,
-                    CreatePermission = g.CreatePermission,
-                    ManagePermission = g.ManagePermission,
-                    ReadPermission = g.ReadPermission,
                     Users = _context.User.Where(u => u.GroupId == g.Id).Select(u => new UserDTO()
                         {
                             Id = u.Id,
-                            CompanyId = u.CompanyId,
                             FirstName = u.FirstName,
                             LastName = u.LastName,
-                            GroupId = g.Id,
                         }).ToList()
                 }).ToListAsync();
         }
 
         // GET: api/UserGroup/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<UserGroupDTO>> GetUserGroup(int id)
+        public async Task<ActionResult<UserGroupDetailDTO>> GetUserGroup(int id)
         {
             var userGroup = await _context.UserGroup.FindAsync(id);
 
             if (userGroup == null) { return NotFound(); }
 
-            var userGroupDto = new UserGroupDTO()
+            var userGroupDto = new UserGroupDetailDTO()
             {
                 Id = userGroup.Id,
                 Name = userGroup.Name,
                 ContributePermission = userGroup.ContributePermission,
                 CreatePermission = userGroup.CreatePermission,
                 ManagePermission = userGroup.ManagePermission,
-                ReadPermission = userGroup.ReadPermission,
-                Users = _context.User.Where(u => u.GroupId == userGroup.Id).Select(u => new UserDTO()
-                {
-                    Id = u.Id,
-                    CompanyId = u.CompanyId,
-                    FirstName = u.FirstName,
-                    LastName = u.LastName,
-                    GroupId = userGroup.Id,
-                }).ToList()
+                ReadPermission = userGroup.ReadPermission
             };
 
             return userGroupDto;

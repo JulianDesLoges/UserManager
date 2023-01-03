@@ -16,6 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using UserManager.Shared;
+using UserManager.Shared.DataTransferObjects;
 using UserManager.WPF.Services;
 using UserManager.WPF.ViewModels;
 using UserManager.WPF.ViewModels.DetailViewModels;
@@ -28,27 +29,52 @@ namespace UserManager.WPF
     /// </summary>
     public partial class MainWindow : Window
     {
+        private readonly WebApi _webApi;
         private readonly MainWindowViewModel _viewModel;
 
         public MainWindow()
         {
             InitializeComponent();
+
             _viewModel = (MainWindowViewModel)DataContext;
+            _webApi = App.Services.GetService<WebApi>() ?? throw new Exception("WebApi Service not available.");
         }
 
 
-        private void UserExplorer_SelectionChanged(object obj)
+        private async void UserExplorer_SelectionChanged(object obj)
         {
+
             // TODO use Dictionary / Application.Resources for this.
-            if (obj.GetType() == typeof(UserGroupViewModel))
+            if (obj is UserGroupViewModel userGroup)
             {
+                // Request user group details
+                var result = await _webApi.GetAsync($"UserGroup/{userGroup.Id}");
+
+                if (!result.IsSuccessStatusCode) { throw new Exception("Failed to request UserGroup details."); }
+
+                var groupDetails = await result.Content.ReadFromJsonAsync<UserGroupDetailDTO>();
+
+                if (groupDetails == null) { throw new Exception("Invalid UserGroup details layout."); }
+
                 Debug.WriteLine("SelectionChanged: UserGroupDetailViewModel Opening");
-                _viewModel.CurrentDetailViewModel = new UserGroupDetailViewModel((UserGroupViewModel)obj);
+                _viewModel.CurrentDetailViewModel = new UserGroupDetailViewModel(groupDetails);
             }
-            else if (obj.GetType() == typeof(UserViewModel))
+            else if (obj is UserViewModel user)
             {
+                var result = await _webApi.GetAsync($"User/{user.Id}");
+
+                if (!result.IsSuccessStatusCode) { throw new Exception("Failed to request User details."); }
+
+                var userDetails = await result.Content.ReadFromJsonAsync<UserDetailDTO>();
+
+                if (userDetails == null) { throw new Exception("Invalid User details layout."); }
+
                 Debug.WriteLine("SelectionChanged: UserDetailViewModel Opening");
-                _viewModel.CurrentDetailViewModel = new UserDetailViewModel();
+                _viewModel.CurrentDetailViewModel = new UserDetailViewModel(userDetails);
+            }
+            else
+            {
+                throw new Exception("Unknown UserExplorer selection.");
             }
         }
     }

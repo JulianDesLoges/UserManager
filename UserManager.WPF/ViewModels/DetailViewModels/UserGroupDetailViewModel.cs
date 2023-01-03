@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UserManager.Shared.DataTransferObjects;
 
 namespace UserManager.WPF.ViewModels.DetailViewModels
 {
@@ -11,6 +12,8 @@ namespace UserManager.WPF.ViewModels.DetailViewModels
     /// </summary>
     public class UserGroupDetailViewModel : ViewModelBase, IDetailViewModel
     {
+        public int Id { get; }
+
         public string Name
         {
             get => _name;
@@ -76,8 +79,9 @@ namespace UserManager.WPF.ViewModels.DetailViewModels
         private bool _managePermission;
 
 
-        public UserGroupDetailViewModel(UserGroupViewModel userGroup)
+        public UserGroupDetailViewModel(UserGroupDetailDTO userGroup)
         {
+            Id = userGroup.Id;
             _name = userGroup.Name;
             _readPermission = userGroup.ReadPermission;
             _contributePermission = userGroup.ContributePermission;
