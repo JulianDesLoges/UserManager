@@ -9,5 +9,11 @@ namespace UserManager.WPF.ViewModels.DetailViewModels
     /// <summary>
     /// Interface for ViewModels that are DetailViewModels.
     /// </summary>
-    public interface IDetailViewModel { }
+    public interface IDetailViewModel
+    {
+        /// <summary>
+        /// Handles how a detail view behaves if the update button was pressed.
+        /// </summary>
+        void UpdateDetails();
+    }
 }

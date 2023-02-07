@@ -22,6 +22,7 @@ namespace UserManager.API.Controllers
             _context = context;
         }
 
+
         // GET: api/UserGroup
         [HttpGet]
         public async Task<ActionResult<IEnumerable<UserGroupDTO>>> GetUserGroups()
@@ -38,6 +39,7 @@ namespace UserManager.API.Controllers
                         }).ToList()
                 }).ToListAsync();
         }
+
 
         // GET: api/UserGroup/5
         [HttpGet("{id}")]
@@ -60,15 +62,27 @@ namespace UserManager.API.Controllers
             return userGroupDto;
         }
 
+
         // PUT: api/UserGroup/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutUserGroup(int id, UserGroup userGroup)
+        public async Task<IActionResult> PutUserGroup(int id, UserGroupDetailDTO userGroupDTO)
         {
-            if (id != userGroup.Id)
+            if (id != userGroupDTO.Id)
             {
                 return BadRequest();
             }
+
+            var userGroup = new UserGroup()
+            {
+                Id = userGroupDTO.Id,
+                Name = userGroupDTO.Name,
+                ReadPermission = userGroupDTO.ReadPermission,
+                ContributePermission = userGroupDTO.ContributePermission,
+                CreatePermission = userGroupDTO.CreatePermission,
+                ManagePermission = userGroupDTO.ManagePermission,
+                Users = _context.User.Where(u => u.GroupId == userGroupDTO.Id).ToList(),
+            };
 
             _context.Entry(userGroup).State = EntityState.Modified;
 

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using UserManager.WPF.Commands;
 using UserManager.WPF.ViewModels.DetailViewModels;
 
 namespace UserManager.WPF.ViewModels
@@ -23,5 +25,8 @@ namespace UserManager.WPF.ViewModels
         }
 
         private IDetailViewModel? _detailViewModel;
+
+
+        public ICommand UpdateDetailsCommand => new Command(_ => _detailViewModel?.UpdateDetails());
     }
 }

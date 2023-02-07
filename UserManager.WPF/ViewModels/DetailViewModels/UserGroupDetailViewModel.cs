@@ -1,9 +1,13 @@
-﻿using System;
+﻿using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using UserManager.Shared.DataTransferObjects;
+using UserManager.WPF.Services;
 
 namespace UserManager.WPF.ViewModels.DetailViewModels
 {
@@ -79,14 +83,46 @@ namespace UserManager.WPF.ViewModels.DetailViewModels
         private bool _managePermission;
 
 
-        public UserGroupDetailViewModel(UserGroupDetailDTO userGroup)
+        private readonly WebApi _webApi;
+        private readonly UserGroupViewModel _userGroupViewModel;
+
+
+        public UserGroupDetailViewModel(UserGroupViewModel userGroupViewModel, UserGroupDetailDTO userGroup)
         {
+            _userGroupViewModel = userGroupViewModel;
             Id = userGroup.Id;
             _name = userGroup.Name;
             _readPermission = userGroup.ReadPermission;
             _contributePermission = userGroup.ContributePermission;
             _createPermission = userGroup.CreatePermission;
             _managePermission = userGroup.ManagePermission;
+
+            _webApi = App.Services.GetService<WebApi>() ?? throw new Exception("WebApi Service not available.");
+        }
+
+
+        public async void UpdateDetails()
+        {
+            Debug.WriteLine("Updating UserGroup");
+            var response = await _webApi.PutAsync($"UserGroup/{Id}", new UserGroupDetailDTO()
+            {
+                Id = Id,
+                Name = Name,
+                ReadPermission = ReadPermission,
+                ContributePermission = ContributePermission,
+                CreatePermission = CreatePermission,
+                ManagePermission = ManagePermission
+            });
+
+
+            if (response.IsSuccessStatusCode)
+            {
+                _userGroupViewModel.Name = Name;
+                _userGroupViewModel.ReadPermission = ReadPermission;
+                _userGroupViewModel.ContributePermission = ContributePermission;
+                _userGroupViewModel.CreatePermission = CreatePermission;
+                _userGroupViewModel.ManagePermission = ManagePermission;
+            }
         }
     }
 }

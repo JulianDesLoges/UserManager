@@ -57,7 +57,7 @@ namespace UserManager.WPF
                 if (groupDetails == null) { throw new Exception("Invalid UserGroup details layout."); }
 
                 Debug.WriteLine("SelectionChanged: UserGroupDetailViewModel Opening");
-                _viewModel.CurrentDetailViewModel = new UserGroupDetailViewModel(groupDetails);
+                _viewModel.CurrentDetailViewModel = new UserGroupDetailViewModel(userGroup, groupDetails);
             }
             else if (obj is UserViewModel user)
             {
@@ -70,7 +70,7 @@ namespace UserManager.WPF
                 if (userDetails == null) { throw new Exception("Invalid User details layout."); }
 
                 Debug.WriteLine("SelectionChanged: UserDetailViewModel Opening");
-                _viewModel.CurrentDetailViewModel = new UserDetailViewModel(userDetails);
+                _viewModel.CurrentDetailViewModel = new UserDetailViewModel(user, userDetails);
             }
             else
             {
@@ -82,6 +82,12 @@ namespace UserManager.WPF
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
             // Init UserExplorer
+            UpdateUserExplorer();
+        }
+
+
+        private async void UpdateUserExplorer()
+        {
             var response = await _webApi.GetAsync("UserGroup");
 
             if (!response.IsSuccessStatusCode) { throw new Exception("Failed to request UserGroups"); }

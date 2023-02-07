@@ -56,12 +56,13 @@
                             Orientation="Horizontal">
                     <Button Content="Update"
                             Width="Auto"
+                            Command="{Binding UpdateDetailsCommand}"
                             MinWidth="150">
                     </Button>
                 </StackPanel>
                 <StackPanel DockPanel.Dock="Left"
                             Orientation="Horizontal">
-                    <Button Content="Revert Changes"
+                    <Button Content="Delete"
                             Width="Auto"
                             MinWidth="150">
                     </Button>

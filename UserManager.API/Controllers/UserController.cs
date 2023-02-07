@@ -59,6 +59,7 @@ namespace UserManager.API.Controllers
                     Id = c.Id,
                     Name = c.Name,
                 }).First(),
+                GroupId = user.GroupId,
             };
         }
 
@@ -66,12 +67,23 @@ namespace UserManager.API.Controllers
         // PUT: api/User/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutUser(int id, User user)
+        public async Task<IActionResult> PutUser(int id, UserDetailDTO userDTO)
         {
-            if (id != user.Id)
+            if (id != userDTO.Id)
             {
                 return BadRequest();
             }
+
+            var user = new User()
+            {
+                Id = userDTO.Id,
+                FirstName = userDTO.FirstName,
+                LastName = userDTO.LastName,
+                Company = await _context.Company.Where(c => c.Id == userDTO.CompanyId).FirstAsync(),
+                CompanyId = userDTO.CompanyId,
+                Group = await _context.UserGroup.Where(g => g.Id == userDTO.GroupId).FirstAsync(),
+                GroupId = userDTO.GroupId,
+            };
 
             _context.Entry(user).State = EntityState.Modified;
 
